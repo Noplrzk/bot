@@ -36,6 +36,7 @@ pm2 start index.js --name "ecerci-bot"
 ```
 
 ### 5. Open Port 5032
-```sudo ufw allow 5032/tcp
+``` 
+sudo ufw allow 5032/tcp
 ```
 
