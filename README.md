@@ -23,15 +23,19 @@ Menggunakan NPM:
 
 ```yarn install --network-timeout 1000000```
 
-### 3. Konfigurasi Fix (PENTING)
+### 3. Konfigurasi Fix 
 * Jika muncul error fetch is not defined, pastikan kamu telah menginstal node-fetch versi 2:
 
 ```npm install node-fetch@2```
 
-## Cara Menjalankan
+### 4. Start Bot
 ``` npm start ```
 * cara kedua :
 ```
 pm2 start index.js --name "ecerci-bot"
+```
+
+### 5. Open Port 5032
+```sudo ufw allow 5032/tcp
 ```
 
