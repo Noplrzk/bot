@@ -19,7 +19,7 @@ Menggunakan NPM:
 
 ```npm install --no-package-lock --legacy-peer-deps```
 
-## Atau Menggunakan Yarn (Direkomendasikan):
+### Menggunakan Yarn (Recommend):
 
 ```yarn install --network-timeout 1000000```
 
@@ -29,8 +29,9 @@ Menggunakan NPM:
 ```npm install node-fetch@2```
 
 ## Cara Menjalankan
-``` npm start
-#or
+``` npm start ```
+* cara kedua :
+```
 pm2 start index.js --name "ecerci-bot"
 ```
 
